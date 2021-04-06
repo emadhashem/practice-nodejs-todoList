@@ -1,23 +1,24 @@
 
+const config = require('dotenv')
 const authRoute = require('./routes/authRoute')
 const express = require('express');
 const handlebars = require('express3-handlebars')
 .create({defaultLayout:'main'});
-const todosRouter = require('./routes/todos')
+// const todosRouter = require('./routes/todos')
 const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
-const cors = require('cors')
-const dotenv = require('dotenv')
-dotenv.config()
+// const cors = require('cors')
+
+
 app.engine('handlebars' , handlebars.engine);
 app.set('view engine' , 'handlebars');
-
+config.config()
 /** this the middlewares */
 app.use(morgan('dev'))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended : false}))
-app.use(cors())
+
 /**--------------------- */
 
 /** defult */
@@ -34,7 +35,6 @@ mongoose.connect('mongodb://localhost/todoList')
 /** */
 /** routes */
 app.use('/auth' , authRoute);
-app.use('/auth' , todosRouter);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT , () => {
     console.log(`the server is working and listening on port ${PORT}...`)
