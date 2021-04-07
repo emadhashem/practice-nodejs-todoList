@@ -1,7 +1,24 @@
 const Joi = require('joi');
+const mongoose = require('mongoose')
 
 
+const userSchema = new mongoose.Schema({
+    userName : {
+        type : String,
+        max : 20,
+        required : true,
 
+    },
+    password : {
+        type : String,
+        required : true
+    },
+    email : {
+        type : String,
+        
+    }
+})
+const User = mongoose.model('User' , userSchema)
 function validateUserRege(user) {
     const userRegeVal = Joi.object({
         userName : Joi.string().max(255).min(2).required(),
@@ -19,5 +36,5 @@ function validateUserLogIn(user) {
 }
 
 module.exports = {
-    validateUserRege , validateUserLogIn
+    validateUserRege , validateUserLogIn, User
 }

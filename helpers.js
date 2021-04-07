@@ -16,4 +16,8 @@ async function geneAuthToken(_id = "") {
     const token = jwt.sign({_id} , process.env.jwtSecret);
     return token
 }
-module.exports = {getPass , checkPass , geneAuthToken ,}
+async function verefAuthToken(token = "") {
+    const verf = jwt.verify(token , process.env.jwtSecret)
+    return verf
+}
+module.exports = {getPass , checkPass , geneAuthToken ,verefAuthToken}

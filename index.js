@@ -1,6 +1,7 @@
 
 const config = require('dotenv')
 const authRoute = require('./routes/authRoute')
+const todoRoute = require('./routes/todos')
 const express = require('express');
 const handlebars = require('express3-handlebars')
 .create({defaultLayout:'main'});
@@ -35,6 +36,7 @@ mongoose.connect('mongodb://localhost/todoList')
 /** */
 /** routes */
 app.use('/auth' , authRoute);
+app.use('/todo' , todoRoute)
 const PORT = process.env.PORT || 3001;
 app.listen(PORT , () => {
     console.log(`the server is working and listening on port ${PORT}...`)
