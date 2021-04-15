@@ -9,6 +9,9 @@ const Todo = mongoose.model( 'todo' , new mongoose.Schema({
     date : {
         type : Date,
         default : Date.now
+    },
+    owner : {
+        type : String
     }
 
 }))

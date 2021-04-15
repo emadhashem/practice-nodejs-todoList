@@ -9,7 +9,7 @@ const handlebars = require('express3-handlebars')
 const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
-// const cors = require('cors')
+const cors = require('cors')
 
 
 app.engine('handlebars' , handlebars.engine);
@@ -19,7 +19,7 @@ config.config()
 app.use(morgan('dev'))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended : false}))
-
+app.use(cors())
 /**--------------------- */
 
 /** defult */

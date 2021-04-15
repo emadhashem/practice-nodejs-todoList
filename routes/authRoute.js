@@ -4,6 +4,7 @@ const {validateUserRege , validateUserLogIn , User} = require('../models/authMod
 const _ = require('lodash')
 const blackList = require('../blackList');
 const { getPass, checkPass , geneAuthToken } = require('../helpers');
+const authmiddleware = require('../middlewares/authmiddleware');
 router.post('/signup' , async (req , res) => {
     const userReq = req.body;
     const {error} = validateUserRege(userReq)
@@ -44,6 +45,17 @@ router.post('/login' , async (req , res) => {
     } catch (ex) {
         res.status(400).send(`some thing wrong with req ${ex.message}`)
         
+    }
+})
+
+router.post('/logout', authmiddleware , async (req , res) => {
+    const reqToken = req.user.token;
+    blackList.push(reqToken)
+
+    try {
+        res.send("logout success")
+    } catch (ex) {
+        res.status(400).send("some thing is wrong ...", ex.message)
     }
 })
 module.exports = router;
